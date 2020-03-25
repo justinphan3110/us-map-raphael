@@ -1,45 +1,28 @@
 <!-- GMAP_EMBED_API_KEY = "AIzaSyAKfIdYEe0UzZXRP7AEIM8PzAH5Ef5gseo" -->
 
-<!-- # Create search bar? wasn't sure if we wanted this? Or if this was correct.  -->
+<LINK REL=StyleSheet HREF="header.css" TYPE="text/css">
+<LINK REL=StyleSheet HREF="main.css" TYPE="text/css">
 <html> 
-<head>
+<header>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <style>
-        /* Set the size of the div element that contains the map */
-        #map {
-            height: 400px;  /* The height is 400 pixels */
-            width: 100%;  /* The width is the width of the web page */
-        }
-    </style> 
+    <div id="main2">
+        <div style="background-color:coral;"></div>
+        <div style="background-color:lightblue;" id="myBlueDiv"></div>  
+        <div style="background-color:lightgreen;"></div>
+    </div>
+    <h1>WEATHER</h1>
     <form enctype='application/json' id="weather" method="get" action="http://eecslab-16.case.edu/~pxt177/cgi-bin/P2/backend/weather.cgi">
-        <input class="city" type="text" name="city" size="31" maxlength="255">
-        <input class="state" type="text" name="state" size="31" maxlength="255">
+        <input class="city" type="text" name="city" value="Cleveland" size="31" maxlength="255">
+        <input class="state" type="text" name="state" value="Ohio" size="31" maxlength="255">
         <input type="submit" value="Search for Weather">
     </form>
-</head>
+</header>
 
 <body> 
     <div id="map"></div>
     <!-- // https://developers.google.com/maps/documentation/javascript/adding-a-legend -->
     <script type="text/javascript">
         var map;
-        // function initMap() {
-        //     var iconBase = 'http://maps.google.com/mapfiles/kml/pal4';
-        //     var icons = {info: { name: 'Weather', icon: iconBase + 'icon30.png' } }
-        //     map = new google.maps.Map(document.getElementById('map'), {zoom: 4, center: location}) {
-        //         mapTypeId: 'roadmap'
-        //     });
-        
-        //     // add marker to the map
-        //     var marker = new google.maps.Marker({
-        //         position:  new google.maps.LatLng(" location.lat ", " location.lng "),
-        //         icon: icons['Weather'].icon,
-        //         map: map,
-        //         title: 'Current Temperature: ' + location.temp
-        //     });
-        // }
-        // Initialize and add the map
-
         var defaultData = {lng: -81.7, lat: 41.5, icon: '01d', desc: 'Clear sky', temp: 273};
         function renderMap(data){
             var iconBase = 'http://openweathermap.org/img/wn/';
@@ -53,6 +36,7 @@
                 title: 'Current Temperature: ' + data.temp - 273.15 + 'C ' + data.desc
             })
         }
+        var defaultLoc = {lng: -81.7, lat: 41.5}
         function initMap() {
             // var loc = defaultD;
             var cityData = null;
@@ -90,9 +74,23 @@
                     })
                 }
             )
+            var iconBase = 'http://openweathermap.org/img/wn/';
+            var icons = {info: { name: 'Weather', icon: iconBase + '01d.png' } }
+            var map = new google.maps.Map(document.getElementById('map'), {zoom: 8, center: loc});
+            var marker = new google.maps.Marker({
+                position: loc,
+                icon: icons.info.icon,
+                map: map,
+                title: 'Current Temperature: 50F'
+            });
         }
-
     </script>
+    <br>
 
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKfIdYEe0UzZXRP7AEIM8PzAH5Ef5gseo&callback=initMap"></script>"
 </body>
+
+<footer>
+    <div>For more information, please contact <a href="srf48@case.edu">srf48@case.edu</a> 
+        or <a href="pxt177@case.edu">pxt177@case.edu</a>.</div>
+</footer>
