@@ -26,15 +26,23 @@
         var defaultData = {lng: -81.7, lat: 41.5, icon: '01d', desc: 'Clear sky', temp: 273};
         function renderMap(data){
             var iconBase = 'http://openweathermap.org/img/wn/';
-            var icons = {info: { name: 'Weather', icon: iconBase + data.icon + '.png' }}
+            var icons = {info: { name: 'Weather', icon: iconBase + data.icon + '@2x.png' }}
             var loc = {lng: data.lng, lat: data.lat}
             var map = new google.maps.Map(document.getElementById('map'), {zoom: 8, center: loc});
+            var infowindow = new google.maps.InfoWindow({
+                content: 'Current Temperature: ' + (parseFloat(data.temp) - 273.15).toFixed(2) + ' C with ' + data.desc
+            });
+
             var marker = new google.maps.Marker({
                 position: loc,
                 icon: icons.info.icon,
                 map: map,
-                title: 'Current Temperature: ' + data.temp - 273.15 + 'C ' + data.desc
             })
+
+            marker.addListener('click', function() {
+                infowindow.open(map, marker);
+            });
+
         }
         var defaultLoc = {lng: -81.7, lat: 41.5}
         function initMap() {
