@@ -1,0 +1,36 @@
+GMAP_EMBED_API_KEY = "AIzaSyAKfIdYEe0UzZXRP7AEIM8PzAH5Ef5gseo"
+
+# Create search bar? wasn't sure if we wanted this? Or if this was correct. 
+<html> 
+<head>
+<form method="get">
+    <input class="search2" type="text" name="search_bar" size="31" maxlength="255">
+    <input type="submit" value="Search for Weather">
+</form>
+</head>
+
+#Create map
+<body> 
+    <div id="map"></div>
+    // https://developers.google.com/maps/documentation/javascript/adding-a-legend
+    <script type="text/javascript">
+        var map;
+        function initMap() {
+            var iconBase = 'http://maps.google.com/mapfiles/kml/pal4';
+            var icons = {info: { name: 'Weather', icon: iconBase + 'icon30.png' } }
+            map = new google.maps.Map(document.getElementById('map'), {zoom: 4, center: location}) {
+                mapTypeId: 'roadmap'
+            });
+        
+            // add marker to the map
+            var marker = new google.maps.Marker({
+                position:  new google.maps.LatLng(" location.lat ", " location.lng "),
+                icon: icons['Weather'].icon,
+                map: map,
+                title: 'Current Temperature: ' + location.temp
+            });
+        }
+    </script>
+
+    <script async defer src=\"https://maps.googleapis.com/maps/api/js?key=" GMAP_EMBED_API_KEY "&callback=initMap\"></script>"
+</body>
