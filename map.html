@@ -1,36 +1,65 @@
-GMAP_EMBED_API_KEY = "AIzaSyAKfIdYEe0UzZXRP7AEIM8PzAH5Ef5gseo"
+<!-- GMAP_EMBED_API_KEY = "AIzaSyAKfIdYEe0UzZXRP7AEIM8PzAH5Ef5gseo" -->
 
-# Create search bar? wasn't sure if we wanted this? Or if this was correct. 
+<!-- # Create search bar? wasn't sure if we wanted this? Or if this was correct.  -->
 <html> 
 <head>
-<form method="get">
-    <input class="search2" type="text" name="search_bar" size="31" maxlength="255">
-    <input type="submit" value="Search for Weather">
-</form>
+    <style>
+        /* Set the size of the div element that contains the map */
+        #map {
+            height: 400px;  /* The height is 400 pixels */
+            width: 100%;  /* The width is the width of the web page */
+        }
+    </style> 
+    <form method="get">
+        <input class="city" type="text" name="search_bar" size="31" maxlength="255">
+        <input class="state" type="text" name="search_bar" size="31" maxlength="255">
+        <input type="submit" value="Search for Weather">
+    </form>
 </head>
 
-#Create map
 <body> 
     <div id="map"></div>
-    // https://developers.google.com/maps/documentation/javascript/adding-a-legend
+    <!-- // https://developers.google.com/maps/documentation/javascript/adding-a-legend -->
     <script type="text/javascript">
         var map;
-        function initMap() {
-            var iconBase = 'http://maps.google.com/mapfiles/kml/pal4';
-            var icons = {info: { name: 'Weather', icon: iconBase + 'icon30.png' } }
-            map = new google.maps.Map(document.getElementById('map'), {zoom: 4, center: location}) {
-                mapTypeId: 'roadmap'
-            });
+        // function initMap() {
+        //     var iconBase = 'http://maps.google.com/mapfiles/kml/pal4';
+        //     var icons = {info: { name: 'Weather', icon: iconBase + 'icon30.png' } }
+        //     map = new google.maps.Map(document.getElementById('map'), {zoom: 4, center: location}) {
+        //         mapTypeId: 'roadmap'
+        //     });
         
-            // add marker to the map
+        //     // add marker to the map
+        //     var marker = new google.maps.Marker({
+        //         position:  new google.maps.LatLng(" location.lat ", " location.lng "),
+        //         icon: icons['Weather'].icon,
+        //         map: map,
+        //         title: 'Current Temperature: ' + location.temp
+        //     });
+        // }
+        // Initialize and add the map
+
+        var defaultLoc = {lng: -81.7, lat: 41.5}
+        function initMap() {
+            var loc = defaultLoc
+            var iconBase = 'http://openweathermap.org/img/wn/';
+            var icons = {info: { name: 'Weather', icon: iconBase + '01d.png' } }
+            var map = new google.maps.Map(document.getElementById('map'), {zoom: 8, center: loc});
+            // The location of Uluru
+            // The map, centered at Uluru
+            // var map = new google.maps.Map(
+            //     document.getElementById('map'), {zoom: 4, center: uluru});
+            // The marker, positioned at Uluru
+            // var marker = new google.maps.Marker({position: uluru, map: map});
             var marker = new google.maps.Marker({
-                position:  new google.maps.LatLng(" location.lat ", " location.lng "),
-                icon: icons['Weather'].icon,
+                position: loc,
+                icon: icons.info.icon,
                 map: map,
-                title: 'Current Temperature: ' + location.temp
+                title: 'Current Temperature: 50F'
             });
         }
+
     </script>
 
-    <script async defer src=\"https://maps.googleapis.com/maps/api/js?key=" GMAP_EMBED_API_KEY "&callback=initMap\"></script>"
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKfIdYEe0UzZXRP7AEIM8PzAH5Ef5gseo&callback=initMap"></script>"
 </body>
