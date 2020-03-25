@@ -4,7 +4,7 @@ ENDPOINT="api.openweathermap.org/data/2.5/weather?q="
 #QUERY_STRING="city=cleveland&state=ohio"
 
 function setup_keys(){
-    source <(cat weather.key)
+    source <(cat $(find . -name "weather.key"))
 }
 
 function query_map {
