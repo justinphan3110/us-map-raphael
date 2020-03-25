@@ -3,6 +3,7 @@
 <!-- # Create search bar? wasn't sure if we wanted this? Or if this was correct.  -->
 <html> 
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <style>
         /* Set the size of the div element that contains the map */
         #map {
@@ -10,9 +11,9 @@
             width: 100%;  /* The width is the width of the web page */
         }
     </style> 
-    <form method="get">
-        <input class="city" type="text" name="search_bar" size="31" maxlength="255">
-        <input class="state" type="text" name="search_bar" size="31" maxlength="255">
+    <form name="weather" method="get" action="backend/weather.cgi">
+        <input class="city" type="text" name="city" size="31" maxlength="255">
+        <input class="state" type="text" name="state" size="31" maxlength="255">
         <input type="submit" value="Search for Weather">
     </form>
 </head>
@@ -41,7 +42,28 @@
 
         var defaultLoc = {lng: -81.7, lat: 41.5}
         function initMap() {
-            var loc = defaultLoc
+            var loc = defaultLoc;
+            var cityData;
+            $(document).ready(
+                function(){
+                    $("form").submit(function(){
+                        $.ajax({
+                            type: frm.attr('method'),
+                            url: frm.attr('action'),
+                            data: frm.serialize(),
+                            success: function (data) {
+                                console.log('Submission was successful.');
+                                cityData = data
+                                console.log(data);
+                            },
+                            error: function (data) {
+                                console.log('An error occurred.');
+                                console.log(data);
+                            },
+                        })
+                    })
+                }
+            )
             var iconBase = 'http://openweathermap.org/img/wn/';
             var icons = {info: { name: 'Weather', icon: iconBase + '01d.png' } }
             var map = new google.maps.Map(document.getElementById('map'), {zoom: 8, center: loc});
