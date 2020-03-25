@@ -30,5 +30,7 @@ function weather_data {
     echo $(curl -sS $query)
 }
 
+echo "Content-Type: application/json"
+echo
 setup_keys
 weather_data
